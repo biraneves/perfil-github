@@ -13,14 +13,23 @@ const ReposList = ({ nomeUsuario }) => {
     useEffect(() => {
         setEstaCarregando(true);
         fetch(url)
-            .then(res => res.json())
-            .then(resJson => {
-                setTimeout(() => {
-                    setEstaCarregando(false);
-                    setRepos(resJson);
-                }, 3000);
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Erro HTTP: ${res.status}`);
+                }
+
+                setErro(false);
+                return res.json();
             })
-            .catch(e => setErro(true));
+            .then(resJson => {
+                setEstaCarregando(false);
+                setRepos(resJson);
+            })
+            .catch(e => {
+                console.log('Entrou no catch.');
+                setEstaCarregando(false);
+                setErro(true);
+            });
     }, [nomeUsuario]);
 
     return (
@@ -41,21 +50,30 @@ const ReposList = ({ nomeUsuario }) => {
                                 Existem <strong>{repos.length}</strong> repositórios públicos.
                             </p>
                             <ul className={styles.list}>
-                                {repos.map(({ id, name, language, html_url }) => (
-                                    <li className={styles.listItem} key={id}>
-                                        <div className={styles.listItemName}>
-                                            <strong>Nome:</strong>
-                                            {name}
-                                        </div>
-                                        <div className={styles.listItemLanguage}>
-                                            <strong>Linguagem:</strong>
-                                            {language}
-                                        </div>
-                                        <a className={styles.listItemLink} href={html_url} target="_blank">
-                                            Visitar no GitHub
-                                        </a>
-                                    </li>
-                                ))}
+                                {repos && (
+                                    <>
+                                        {repos.map(({ id, name, language, html_url }) => (
+                                            <li className={styles.listItem} key={id}>
+                                                <div className={styles.listItemName}>
+                                                    <strong>Nome:</strong>
+                                                    {name}
+                                                </div>
+                                                <div className={styles.listItemLanguage}>
+                                                    <strong>Linguagem:</strong>
+                                                    {language}
+                                                </div>
+                                                <a
+                                                    className={styles.listItemLink}
+                                                    href={html_url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    Visitar no GitHub
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </>
+                                )}
                             </ul>
                         </>
                     )}
