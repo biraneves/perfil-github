@@ -1,0 +1,59 @@
+:root {
+    --corPrincipal: #25ccf7;
+    --corSecundaria: #111;
+    --corBotao: #3b3b98;
+    --corBotaoHover: #182c61;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.container-input {
+    padding: 24px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--corPrincipal);
+}
+
+.input-nome-usuario,
+.button-nome-usuario {
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 999px;
+}
+
+.input-nome-usuario {
+    width: 240px;
+    outline: none;
+    text-align: center;
+}
+
+.button-nome-usuario,
+.button-nome-usuario:hover {
+    transition: ease background-color 0.4s;
+}
+
+.button-nome-usuario {
+    margin-left: 8px;
+    padding-left: 24px;
+    padding-right: 24px;
+    background-color: var(--corBotao);
+    color: #fff;
+    cursor: pointer;
+}
+
+.button-nome-usuario:hover {
+    background-color: var(--corBotaoHover);
+}

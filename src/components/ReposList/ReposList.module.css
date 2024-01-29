@@ -1,0 +1,47 @@
+.carregando {
+    display: flex;
+    justify-content: center;
+}
+
+.numeroRepos {
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    text-align: center;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.listItem {
+    list-style: none;
+    padding: 16px;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.listItemName,
+.listItemLanguage {
+    line-height: 26px;
+}
+
+.listItemName strong,
+.listItemLanguage strong {
+    margin-right: 8px;
+}
+
+.listItemLink {
+    display: block;
+    background-color: var(--corPrincipal);
+    color: var(--corSecundaria);
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 3px;
+}
