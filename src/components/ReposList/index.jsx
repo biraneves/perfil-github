@@ -8,6 +8,7 @@ const ReposList = ({ nomeUsuario }) => {
 
     const [repos, setRepos] = useState([]);
     const [estaCarregando, setEstaCarregando] = useState(true);
+    const [erro, setErro] = useState(false);
 
     useEffect(() => {
         setEstaCarregando(true);
@@ -18,37 +19,46 @@ const ReposList = ({ nomeUsuario }) => {
                     setEstaCarregando(false);
                     setRepos(resJson);
                 }, 3000);
-            });
+            })
+            .catch(e => setErro(true));
     }, [nomeUsuario]);
 
     return (
         <div className="container">
-            {estaCarregando ? (
-                <div className={styles.carregando}>
-                    <img src={spinner} alt="Carregando..." />
+            {erro ? (
+                <div className="erro">
+                    <p>Usuário não encontrado.</p>
                 </div>
             ) : (
                 <>
-                    <p className={styles.numeroRepos}>
-                        Existem <strong>{repos.length}</strong> repositórios públicos.
-                    </p>
-                    <ul className={styles.list}>
-                        {repos.map(({ id, name, language, html_url }) => (
-                            <li className={styles.listItem} key={id}>
-                                <div className={styles.listItemName}>
-                                    <strong>Nome:</strong>
-                                    {name}
-                                </div>
-                                <div className={styles.listItemLanguage}>
-                                    <strong>Linguagem:</strong>
-                                    {language}
-                                </div>
-                                <a className={styles.listItemLink} href={html_url} target="_blank">
-                                    Visitar no GitHub
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
+                    {estaCarregando ? (
+                        <div className={styles.carregando}>
+                            <img src={spinner} alt="Carregando..." />
+                        </div>
+                    ) : (
+                        <>
+                            <p className={styles.numeroRepos}>
+                                Existem <strong>{repos.length}</strong> repositórios públicos.
+                            </p>
+                            <ul className={styles.list}>
+                                {repos.map(({ id, name, language, html_url }) => (
+                                    <li className={styles.listItem} key={id}>
+                                        <div className={styles.listItemName}>
+                                            <strong>Nome:</strong>
+                                            {name}
+                                        </div>
+                                        <div className={styles.listItemLanguage}>
+                                            <strong>Linguagem:</strong>
+                                            {language}
+                                        </div>
+                                        <a className={styles.listItemLink} href={html_url} target="_blank">
+                                            Visitar no GitHub
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
                 </>
             )}
         </div>
