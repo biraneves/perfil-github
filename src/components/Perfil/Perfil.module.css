@@ -20,3 +20,9 @@
     font-size: 24px;
     color: var(--corSecundaria);
 }
+
+@media screen and (max-width: 767px) {
+    .header {
+        margin-bottom: 24px;
+    }
+}

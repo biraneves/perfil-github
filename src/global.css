@@ -57,3 +57,9 @@
 .button-nome-usuario:hover {
     background-color: var(--corBotaoHover);
 }
+
+@media screen and (max-width: 1023px) {
+    .container {
+        max-width: 95vw;
+    }
+}
